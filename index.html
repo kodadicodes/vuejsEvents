@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+        #canvas{
+            width: 600px;
+            padding: 200px 20px;
+            text-align: center;
+            border: 1px solid #333;
+        }
+    </style>
+  </head>
+  <body>
+    <!-- v-on Vue.js direktifi, HTML etiketlerine olay dinleyicileri eklemek için kullanılır.-->
+    <div id="app">
+      <button v-on:click.once="age++">Yaşımı arttır</button><!-- once sadece bir kere çalıtırır-->
+      <button v-on:click="age--">Yaşımı azalt</button>
+      <hr />
+      <button v-on:click="ekle">Yaşımı fonksiyon ile arttır</button>
+      <button v-on:click="cikar">Yaşımı fonksiyon ile azalt</button>
+      <hr />
+      <button v-on:click="ekle10(10)">Yaşımı 10 arttır</button>
+      <button v-on:click="cikar10(10)">Yaşımı 10 azalt</button>
+      <p>Yaşım: {{age}}</p>
+      <div id="canvas" v-on:mousemove="updateXY">{{x}}, {{y}}</div><!-- v-on:mousemove Vue.js direktifi, bir HTML öğesinde fare imleci üzerinde hareket ettiğinde tetiklenecek bir olay dinleyicisini belirtmek için kullanılır.-->
+      <hr>
+      <a v-on:click.prevent="tikla" href="https://www.google.com.tr/">google</a><!-- 
+        Vue.js'de .prevent kullanımı, bir olayın varsayılan davranışını engellemek için kullanılan bir özelliktir.-->
+    </div>
+
+    <script>
+      const { createApp } = Vue;
+      createApp({
+        data() {
+          return {
+            age: 25,
+            x: 0,
+            y: 0
+          };
+        },
+        methods: {
+          ekle: function () {
+            this.age++;
+          },
+          cikar: function () {
+            this.age--;
+          },
+          ekle10: function (yil) {
+            this.age += yil;
+          },
+          cikar10: function (sene) {
+            this.age -= sene;
+          },
+          updateXY(event){
+            this.x=event.offsetX;
+            this.y=event.offsetY;
+          },
+          tikla(){
+            alert("Tıklandı.")
+          }
+        },
+      }).mount("#app");
+    </script>
+  </body>
+</html>
